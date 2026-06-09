@@ -1,0 +1,12 @@
+dwh_accivelo:
+  outputs:
+    dev:
+      dbname: postgres
+      host: localhost
+      pass: '1234'
+      port: 5432
+      schema: dwh_accivelo
+      threads: 1
+      type: postgres
+      user: alex
+  target: dev
