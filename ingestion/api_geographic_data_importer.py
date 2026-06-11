@@ -4,9 +4,6 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 import requests as re
-"""
-    https://geo.api.gouv.fr/departements/75/communes
-"""
 class api_geographic_data_importer:
     def __init__(self):
         self.URL = "https://geo.api.gouv.fr/departements"
