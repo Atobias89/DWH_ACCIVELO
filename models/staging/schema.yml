@@ -1,0 +1,17 @@
+version : 2
+
+models:
+  - name: stg_inf_accident
+  - name : stg_inf_vehicule
+  - name : stg_inf_victime
+  - name : stg_loc_accident
+    columns :
+      - name : num_acc
+        constraints:
+          - type : primary_key
+        tests:
+          - not_null
+      - name : departement
+      - name : comune 
+      - name : lat 
+      - name : long

@@ -1,0 +1,10 @@
+sources:
+  - name: acci
+    schema: schema
+    tables:
+      - name: info_geo_communes
+      - name: info_geo_departements
+      - name: information_accident
+      - name: information_vehicule
+      - name: information_victime
+      - name: localisation_accident
