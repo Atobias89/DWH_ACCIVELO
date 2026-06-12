@@ -1,11 +1,11 @@
-dwh_accivelo:
+acciveloDBT:
   outputs:
     dev:
       dbname: postgres
       host: localhost
       pass: '1234'
       port: 5432
-      schema: dwh_accivelo
+      schema: acciveloDBT
       threads: 1
       type: postgres
       user: alex

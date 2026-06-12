@@ -1,15 +1,15 @@
 {{
     config(
         materialized= 'incremental',
-        unique_key = ''
+        unique_key = 'victime_id',
         incremental_strategy = 'merge',
-        merge_exclude_columns = []
+        merge_exclude_columns = ['created_at']
     )
 }}
 
-with victimes_info as {
+with victimes_info as (
     select 
-    row_number() over() as id,
+      concat("Num_Acc", row_number() over(partition by "Num_Acc")) as victime_id,
     
      case 
           when grav = '1' then 'Indemne'
@@ -17,7 +17,7 @@ with victimes_info as {
           when grav = '3' then 'Blessé hospitalisé'
           when grav = '4' then 'Blessé léger'
           else 'Non renseigné'
-        end as gravtie_accident,
+        end as gravite_accident,
         case 
           when sexe = 1 then 'Masculin'
           when sexe = 2 then 'Féminin'
@@ -45,9 +45,18 @@ with victimes_info as {
                when equipement = '9' then 'Autre'
                else 'Non renseigné'
         end as equipement_securite,
-        "Num_Acc" as num_acc
+        "Num_Acc" as num_acc,
+        cast(now() as date) as created_at,
+        cast(now() as date) as updated_at
         from {{source('acci','information_victime')}}
  
-}
+)
+
+select * from victimes_info
+
+
+{%  if is_incremental() %}
+    where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
+{% endif %}
 
      
