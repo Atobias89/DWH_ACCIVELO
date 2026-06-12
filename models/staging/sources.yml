@@ -1,6 +1,10 @@
 sources:
   - name: acci
+<<<<<<< HEAD
     schema: acciveloDBT
+=======
+    schema: schema
+>>>>>>> 9b94efd2a6b5cceebc1dfe2dc538fa1aca0cf022
     tables:
       - name: info_geo_communes
       - name: info_geo_departements
