@@ -14,7 +14,17 @@ models:
       - name : created_at
       - name : updated_at
   - name :  stg_inf_accident
-  - name : stg_inf_vehicule
+  - name : stg_info_vehicule
+    columns:
+      - name : info_vehi_id
+        constraints : 
+          - type : primary_key
+      - name: manoeuvre_vehicule_avant
+      - name : vehiculeid
+      - name : typevehicules
+      - name : info_commune
+      - name : created_at
+      - name : updated_at
   - name : stg_loc_accident
     columns :
       - name : num_acc
