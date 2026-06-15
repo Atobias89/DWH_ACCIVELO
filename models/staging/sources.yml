@@ -5,7 +5,7 @@ sources:
     schema: acciveloDBT
     tables:
       - name: info_geo_communes
-      - name: info_geo_departements
+      - name: info_geo_departments
       - name: information_accident
       - name: information_vehicule
       - name: information_victime
