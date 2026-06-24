@@ -24,7 +24,10 @@
         {{stg_info_accident_luminosite('lum')}} as luminosite,  
        {{ stg_info_accident_meteo('atm')}} as meteo,
        {{stg_info_accident_cat_acc('catr')}} as categorie_accident,
+<<<<<<< HEAD
 
+=======
+>>>>>>> d2d6eee5d8191e97f88e473070bdeea9de665cac
         case 
             when circ = 1 then 'A sens unique'
             when circ = 2 then 'Bidirectionnelle'
