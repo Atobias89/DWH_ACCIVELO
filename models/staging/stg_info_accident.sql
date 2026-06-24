@@ -1,8 +1,8 @@
  {{
     config(
         materialized = 'incremental',
-        unique_key = '',
-        incremental_strategy = 'merge'
+        unique_key = 'accident_id',
+        incremental_strategy = 'merge',
         merge_exclude_columns = ['created_at']
     )
  }}
@@ -39,14 +39,7 @@
           when lum = 4 then 'Nuit avec éclairage public non allumé'
           when lum = 5 then 'Nuit avec éclairage public allumé'
         end as luminosite,
-        case
-          when lum = 1 then 'Plein jour'
-          when lum = 2 then 'Crépuscule ou aube'
-          when lum = 3 then 'Nuit sans éclairage public'
-          when lum = 4 then 'Nuit avec éclairage public non allumé'
-          when lum = 5 then 'Nuit avec éclairage public allumé'
-        end as luminosite,
-         case 
+        case 
            when atm = 1 then 'Normale'
            when atm = 2 then 'Pluie légère'
            when atm = 3 then 'Pluie forte'
@@ -59,13 +52,13 @@
            else 'Non renseigné'
        end as meteo,
         case 
-          when catr  == 1 then 'Autoroute'
-          when catr  == 2 then 'Route nationale'
-          when catr  == 3 then 'Route départementale'
-          when catr  == 4 then 'Voie communale'
-          when catr  == 5 then 'Hors réseau public'
-          when catr  == 6 then 'Parc de stationnement ouvert à la circulation publique'
-          when catr ==  7 then 'Routes de métropole urbaine'
+          when catr  = 1 then 'Autoroute'
+          when catr  = 2 then 'Route nationale'
+          when catr  = 3 then 'Route départementale'
+          when catr  = 4 then 'Voie communale'
+          when catr  = 5 then 'Hors réseau public'
+          when catr  = 6 then 'Parc de stationnement ouvert à la circulation publique'
+          when catr =  7 then 'Routes de métropole urbaine'
           else 'Autre'
         end as categorie_accident,
         case 
@@ -89,8 +82,12 @@
           when plan = 3 then 'En courbe à droite'
           when plan = 4 then  'En «S»'
           else 'Non renseigné'
-        end  plan_route
-    
-
+        end  plan_route,
+        "Num_Acc" as num_acc,
+        current_date as created_at,
+        current_date as updated_at   
+      from {{source('acci','information_accident')}}
  )
-     
+
+
+ select  * from info_accident    
