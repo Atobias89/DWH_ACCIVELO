@@ -47,6 +47,7 @@
           else 'Non renseigné'
         end  plan_route,
         "Num_Acc" as num_acc,
+        "date" date_accident,
         current_date as created_at,
         current_date as updated_at   
       from {{source('acci','information_accident')}}
@@ -56,5 +57,5 @@
  select  * from info_accident    
 
  {%  if is_incremental() %}
-    where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
+    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
 {% endif %}

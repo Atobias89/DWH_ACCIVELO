@@ -46,6 +46,7 @@ with victimes_info as (
                else 'Non renseigné'
         end as equipement_securite,
         "Num_Acc" as num_acc,
+        "date" date_accident,
         cast(now() as date) as created_at,
         cast(now() as date) as updated_at
         from {{source('acci','information_victime')}}
@@ -55,8 +56,8 @@ with victimes_info as (
 select * from victimes_info
 
 
-{%  if is_incremental() %}
-    where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
+ {%  if is_incremental() %}
+    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
 {% endif %}
 
      

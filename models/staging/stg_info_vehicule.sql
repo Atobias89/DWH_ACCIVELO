@@ -84,8 +84,10 @@ with info_vehicule as(
           when typevehicules = '80'  then  'VAE'
           else  'Autre véhicule'
         end  typevehicules, 
-        'numVehicules',
+        "numVehicules" num_vehicules,
         "_infos_commune.code_epci" info_commune,
+        "Num_Acc" as num_acc,
+        "date" date_accident,
         current_date as created_at,
         current_date as updated_at
     from 
@@ -95,7 +97,7 @@ with info_vehicule as(
 
 select * from info_vehicule
 
-{%  if is_incremental() %}
-    where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
+ {%  if is_incremental() %}
+    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
 {% endif %}
 

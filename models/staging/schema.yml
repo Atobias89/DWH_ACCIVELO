@@ -13,7 +13,23 @@ models:
       - name : num_acc
       - name : created_at
       - name : updated_at
-  - name :  stg_inf_accident
+  - name :  stg_info_accident
+    columns : 
+      - name : accident_id
+      - name : intersection
+      - name : coallision
+      - name : luminosite
+      - name : meteo
+      - name : categorie_accident
+      - name : circulation
+      - name : nombre_voies
+      - name : profil_long_route
+      - name : plan_route
+      - name : num_acc
+      - name : date_accident
+      - name : created_at
+      - name : updated_at
+
   - name : stg_info_vehicule
     columns:
       - name : info_vehi_id

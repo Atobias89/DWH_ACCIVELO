@@ -36,7 +36,7 @@ class api_data_importer:
 		try:
 			pagenum = 0
 			
-			while self.URL and pagenum < 2:
+			while self.URL and pagenum < 5:
 			
 				response  = requests.get(self.URL)
 				api_res = response.json()
@@ -61,7 +61,7 @@ class api_data_importer:
 				
 				df = pd.json_normalize(self.all_data)
 				#---creation de la table localisation_accident
-				colonnes_loc_acc = ['Num_Acc','dep','com','lat','long']
+				colonnes_loc_acc = ['Num_Acc','dep','com','lat','long','date']
 				df[colonnes_loc_acc].to_sql("localisation_accident",self.engine,schema= self.schema ,if_exists='append',index=False )
 					
 				#--- creation de la table accident info
@@ -69,11 +69,11 @@ class api_data_importer:
 				df[colonnes_accident_info].to_sql("information_accident", self.engine,schema=self.schema,if_exists="replace",index=False)
 					
 				#---- creation table information victime
-				colonnes_info_vic = ['Num_Acc','grav','sexe','age','trajet','equipement']
+				colonnes_info_vic = ['Num_Acc','grav','sexe','age','trajet','equipement','date']
 				df[colonnes_info_vic].to_sql("information_victime", self.engine,schema=self.schema,if_exists="append",index=False)
 
 				# information de vehicule
-				colonnes_inf_vehicule = ['Num_Acc','manv','vehiculeid','typevehicules','manoeuvehicules','numVehicules','_infos_commune.code_epci']
+				colonnes_inf_vehicule = ['Num_Acc','manv','vehiculeid','typevehicules','manoeuvehicules','numVehicules','_infos_commune.code_epci','date']
 				df[colonnes_inf_vehicule].to_sql("information_vehicule",self.engine, schema=self.schema, if_exists="append", index=False)
 			except Exception as e: 
 				print(f"eror  : {e}")

@@ -16,7 +16,8 @@ with loc_accident as(
         com."codesPostaux" code_postal,
         loc.lat,
         loc.long,
-        loc."Num_Acc",     
+        loc."Num_Acc",   
+        "date" date_accident,  
         current_date created_at,
         current_date updated_at
     from {{source('acci','localisation_accident')}} loc
@@ -28,6 +29,6 @@ with loc_accident as(
 
 select * from loc_accident
 
-{% if is_incremental() %}
-    where updated_at > (select coalesce(max(updated_at),'1900-01-01') from {{this}})
+ {%  if is_incremental() %}
+    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
 {% endif %}

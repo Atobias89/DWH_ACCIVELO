@@ -1,5 +1,5 @@
 import pandas as pd
-from sqlalchemy import create_engine, text
+from sqlalchemy import create_engine, text, inspect
 import psycopg2
 from dotenv import load_dotenv
 import os
@@ -35,38 +35,57 @@ class api_geographic_data_importer:
         try: 
             api_res = re.get(self.URL)
             self.df = pd.DataFrame(api_res.json())
-            print("Data loaded succesfully...")
+            print("load_geo_department_data ....")
         except Exception as e:
-            print(f"error : {e}")
+            print(f"error : load_geo_department_data  {e}")
     
     def save_geo_depart(self):
   
         try:
+            
             if  self.df is None :
                 print("No data stored")
                 return
-           
-                        # Vérifier après sauvegarde
-            count = 0            
-            with self.engine.connect() as connection:
-                query = text(f'SELECT COUNT(*) FROM "{self.schema}".info_geo_departments')
-                count = connection.execute(query).scalar()
-                print(f"save_geo_depart -> Vérification : {count} lignes en base")
-               
-        
-           
+            
+            inspector = inspect(self.engine)
+            table_exists = inspector.has_table ('info_geo_departments', schema=self.schema)
 
-            if self.engine is not None and len(self.df) > count:
+            if not table_exists and self.engine is not None:
                 self.df.to_sql("info_geo_departments", 
-                               con=self.engine ,
-                               schema = self.schema, 
-                               if_exists="replace",
-                               index=False)
+                               self.engine,
+                              schema = self.schema, 
+                               if_exists = 'replace',
+                               index = False)              
                 print("Data saved succesfully in Db...")
-            else:    
-                print("Nombre de departements inchangé")
+            else :
+                            # Vérifier après sauvegarde
+                count = 0            
+                with self.engine.connect() as connection:
+                    
+                        query = text(f'SELECT COUNT(*) FROM "{self.schema}".info_geo_departments')
+                        count = connection.execute(query).scalar()
+                        print(f"save_geo_depart -> Vérification : {count} lignes en base")
+                
+            
+               
+
+                if self.engine is not None and len(self.df) > count:
+                    print(self.schema)
+                    self.df.to_sql("info_geo_departements", 
+                                self.engine,
+                                schema = self.schema, 
+                                if_exists = 'append',
+                                index = False)              
+                    print("Data saved succesfully in Db...")
+                else:    
+                    print("Nombre de departements inchangé")
+  
+   
+        
+            
+
         except Exception as e:
-            print(f"error: {e}")
+            print(f"error:  save_geo_depart {e}")
     
     def load_geo_communes(self):
         try: 
