@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = 'accident_identity',
+        unique_key = 'victime_identity',
         incremental_strategy = 'merge',
         merge_exclude_columns = ['created_at'],
         on_schema_change = 'append_new_columns'
