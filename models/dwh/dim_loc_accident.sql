@@ -18,12 +18,11 @@ select
     commune,
     code_postal,
     lat,
-    long,           
-    date_accident,  
+    long,      
     created_at,
     updated_at
 from {{ref('stg_loc_accident')}} 
 
 {%  if is_incremental() %}
-   where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
+   where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
 {% endif %}

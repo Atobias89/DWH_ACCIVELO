@@ -1,7 +1,7 @@
 {{
     config(
         materialized = 'incremental',
-        unique_key = 'accident_identity',
+        unique_key = ' vehicule_identity',
         incremental_strategy = 'merge',
         merge_exclude_columns = ['created_at'],
         on_schema_change = 'append_new_columns'
@@ -17,13 +17,12 @@ select
     manoeuvre_vehicule_avant,
     vehiculeid,
     typevehicules,
-    num_vehicules,
-    date_accident,
+    num_vehicules,  
     created_at,
     updated_at
 from {{ref('stg_info_vehicule')}}
 
 
 {%  if is_incremental() %}
-    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
+    where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
 {% endif %}

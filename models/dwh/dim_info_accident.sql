@@ -23,13 +23,12 @@ select
     circulation,
     nombre_voies,
     profil_long_route,
-    plan_route,
-    date_accident,
+    plan_route,    
     created_at,
     updated_at
 from {{ref('stg_info_accident')}}
 
 
 {%  if is_incremental() %}
-    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
+    where updated_at > (select coalesce(max(updated_at), '1900-01-01') from {{this}})
 {% endif %}

@@ -16,7 +16,7 @@ With date_spin as (
 calculated as (
         SELECT
         TO_CHAR(date_day, 'YYYYMMDD')  AS ID_DATE,         
-        date_day AS DATE,
+        date_day AS DATES,
         cast(EXTRACT(YEAR from date_day) as integer) AS ANNEE,
 
          CASE
