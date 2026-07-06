@@ -30,5 +30,5 @@ with loc_accident as(
 select * from loc_accident
 
  {%  if is_incremental() %}
-    where date_accident > (select coalesce(max(date_accident), '1900-01-01') from {{this}})
+    where date_accident >= (select coalesce(max(date_accident), '1900-01-01') from {{this}})
 {% endif %}

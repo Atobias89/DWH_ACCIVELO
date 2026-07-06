@@ -13,7 +13,7 @@ with info_accident as (
         num_acc
     from {{ref('stg_info_accident')}} sia
     inner join {{ref('dim_dates')}} dd on  CAST(dd.dates AS DATE) = CAST(sia.date_accident AS DATE)
-    where updated_at = current_date
+    where updated_at >= current_date
     group by  accident_id,
               intersection,
               plan_route,  

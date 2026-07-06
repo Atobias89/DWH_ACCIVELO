@@ -36,7 +36,7 @@ class api_data_importer:
 		try:
 			pagenum = 0
 			
-			while self.URL and pagenum < 2:
+			while self.URL and pagenum < 5:
 			
 				response  = requests.get(self.URL)
 				api_res = response.json()
