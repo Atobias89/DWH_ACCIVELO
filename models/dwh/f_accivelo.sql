@@ -4,7 +4,8 @@
         materialized = 'incremental',
         unique_key = ['accident_identity','vehicule_identity','victime_identity','location_identity','date_identity'],
         incremental_strategy = 'merge',
-        merge_exclude_columns = ['created_at']    
+        merge_exclude_columns = ['created_at'],
+        on_schema_change = 'append_new_columns'    
     )
 }}
 

@@ -1,0 +1,213 @@
+version: 2
+
+models:
+  - name: dim_dates
+    config:
+      contract: 
+        enforced: true
+    columns: 
+      - name: ID_DATE
+        data_type: text
+        constraints:
+          - type: primary_key
+        data_tests:
+          - unique
+          - not_null
+      - name: DATES
+        data_type: timestamp  
+      - name: ANNEE
+        data_type: Integer
+      - name: ESTBISSEXTILE
+        data_type: text
+      - name: SEMESTRE
+        data_type: Integer
+      - name: TRIMESTRE
+        data_type: Integer
+      - name: MOIS
+        data_type: Integer
+      - name: JOUR
+        data_type: Integer
+      - name: NOMBREJOURANNEE
+        data_type: Integer
+      - name: NOMBREJOURSEMAINE
+        data_type: Integer
+      - name: JOURSEMAINE
+        data_type: text           
+
+  - name: dim_info_accident
+    config:
+      contract:
+        enforced: true
+    columns: 
+      - name: accident_identity
+        data_type: text
+        constraints:
+          - type: primary_key
+        data_tests: 
+          - unique
+          - not_null
+      - name: accident_id
+        data_type: text
+      - name: intersection
+        data_type: text
+      - name: coallision
+        data_type: text 
+      - name: luminosite
+        data_type: text
+      - name: meteo
+        data_type: text
+      - name: categorie_accident
+        data_type: text
+      - name: circulation
+        data_type: text
+      - name: nombre_voies
+        data_type: text
+      - name: profil_long_route
+        data_type: text
+      - name: plan_route
+        data_type: text    
+      - name: created_at
+        data_type: date
+      - name: updated_at
+        data_type: date
+
+  - name: dim_info_vehicule
+    config:
+      contract:
+        enforced: true
+    columns: 
+      - name: vehicule_identity
+        data_type: text
+        constraints: 
+          - type: primary_key
+        data_tests: 
+          - unique 
+          - not_null
+      - name: info_vehi_id
+        data_type: text
+      - name: manoeuvre_vehicule_avant
+        data_type: text
+      - name: vehiculeid
+        data_type: text
+      - name: typevehicules
+        data_type: text
+      - name: num_vehicules
+        data_type: bigint
+      - name: created_at
+        data_type: date
+      - name: updated_at
+        data_type: date
+
+  - name: dim_info_victime
+    config:
+      contract:
+        enforced: true 
+    columns:
+      - name: victime_identity
+        data_type: text
+        constraints: 
+          - type: primary_key
+        data_tests: 
+          - unique
+          - not_null  
+      - name: victime_id
+        data_type: text
+      - name: gravite_accident
+        data_type: text
+      - name: sexe
+        data_type: text
+      - name: trajet_victime
+        data_type: text 
+      - name: equipement_securite
+        data_type: text 
+      - name: created_at
+        data_type: date
+      - name: updated_at
+        data_type: date
+
+  - name: dim_loc_accident
+    config:
+      contract:
+        enforced: true
+    columns:
+      - name: location_identity
+        data_type: text
+        constraints: 
+          - type: primary_key
+        data_tests: 
+          - unique
+          - not_null
+      - name:  loc_id
+        data_type: text 
+      - name: departement
+        data_type: text 
+      - name: commune
+        data_type: text 
+      - name: code_postal
+        data_type: text 
+      - name: lat
+        data_type: float
+      - name: long
+        data_type: float      
+      - name: created_at
+        data_type: date
+      - name: updated_at
+        data_type: date
+
+  - name: f_accivelo
+    config:
+      contract:
+        enforced: true
+    columns: 
+      - name: accident_identity
+        data_type: text
+        constraints: 
+          - type: foreign_key
+            to: ref('dim_info_accident')
+            to_columns: [accident_identity]
+        data_tests: 
+          - not_null 
+      - name: vehicule_identity
+        data_type: text
+        constraints: 
+          - type: foreign_key
+            to: ref('dim_info_vehicule')
+            to_columns: [vehicule_identity]
+      - name: victime_identity 
+        data_type: text
+        constraints: 
+          - type: foreign_key
+            to: ref('dim_info_victime')
+            to_columns: [victime_identity]
+      - name: location_identity
+        data_type: text
+        constraints: 
+          - type: foreign_key
+            to: ref('dim_loc_accident')
+            to_columns: [location_identity]
+      - name: date_identity 
+        data_type: text
+        constraints:
+          - type: foreign_key
+            to: ref('dim_dates')
+            to_columns: [id_date]
+      - name: nombre_accident_journaliere
+        data_type: bigint 
+      - name: nombre_accident_meteo_normale 
+        data_type: bigint
+      - name: nombre_accident_hors_intersection
+        data_type: bigint
+      - name: nombre_accident_bidirectionelle
+        data_type: bigint
+      - name: nombre_deces
+        data_type: bigint 
+      - name: nombre_blesses
+        data_type: bigint 
+      - name: nombre_hommes_accidentes
+        data_type: bigint
+      - name: nombre_femmes_accidentes
+        data_type: bigint
+      - name: created_at
+        data_type: date 
+      - name: updated_at
+        data_type: date
