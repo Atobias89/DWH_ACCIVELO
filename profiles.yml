@@ -1,12 +1,12 @@
 acciveloDBT:
   outputs:
     dev:
-      dbname: postgres
-      host: localhost
-      pass: '1234'
-      port: 5432
-      schema: acciveloDBT
+      dbname: "{{ env_var('DB_BDD') | trim }}"
+      host: "{{ env_var('DB_HOST') | trim }}" 
+      pass: "{{ env_var('DB_PASS') | trim }}" 
+      port: "{{ env_var('DB_PORT') | int }}"
+      schema: "{{ env_var('DB_SCHEMA') | trim }}"
       threads: 1
       type: postgres
-      user: alex
+      user: "{{ env_var('DB_USER') | trim }}"
   target: dev
