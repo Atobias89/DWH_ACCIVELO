@@ -7,7 +7,15 @@
     )
 }}
 
-with victimes_info as (
+
+
+with victimes_treated_list as (
+      select distinct
+       *
+      from {{source('acci','information_victime')}}
+)
+
+,victimes_info as (
     select 
       concat("Num_Acc", row_number() over(partition by "Num_Acc")) as victime_id,
     
@@ -49,7 +57,7 @@ with victimes_info as (
         "date" date_accident,
         cast(now() as date) as created_at,
         cast(now() as date) as updated_at
-        from {{source('acci','information_victime')}}
+        from victimes_treated_list
  
 )
 

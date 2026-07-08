@@ -8,7 +8,15 @@
     )
 }}
 
-with info_vehicule as(
+with vehicule_list_treated as (
+   
+    select distinct
+        *
+    from 
+    {{source('acci','information_vehicule')}} 
+),
+
+ info_vehicule as(
     select 
   concat(vehiculeid,  row_number() over(partition by vehiculeid))  as info_vehi_id ,
  case	   
@@ -91,7 +99,7 @@ with info_vehicule as(
         current_date as created_at,
         current_date as updated_at
     from 
-    {{source('acci','information_vehicule')}} 
+    vehicule_list_treated 
 )
 
 

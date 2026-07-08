@@ -8,9 +8,9 @@
 }}
 
 
-with loc_accident as(
-    select 
-        concat(loc."Num_Acc", row_number() over(partition by loc."Num_Acc"))  as loc_id,
+with loc_accident_treated_list as(
+    select distinct
+        
         dep.nom departement,
         com.nom commune,
         com."codesPostaux" code_postal,
@@ -21,8 +21,24 @@ with loc_accident as(
         current_date created_at,
         current_date updated_at
     from {{source('acci','localisation_accident')}} loc
-    left join {{source('acci','info_geo_departments')}} dep on dep.code = loc.dep
-    left join {{source('acci','info_geo_communes')}} com on com."codeDepartement" = dep.code and com."codeRegion" = com."codeRegion"
+    inner join {{source('acci','info_geo_departments')}} dep on dep.code = loc.dep
+    inner join {{source('acci','info_geo_communes')}} com on  com."code" = loc."com"
+),
+
+ loc_accident as (
+       select 
+        concat("Num_Acc", row_number() over(partition by "Num_Acc"))  as loc_id,
+         departement,
+         commune,
+         code_postal,
+        lat,
+        long,
+        "Num_Acc",   
+         date_accident,  
+        current_date created_at,
+        current_date updated_at
+     from loc_accident_treated_list
+
 )
 
 
