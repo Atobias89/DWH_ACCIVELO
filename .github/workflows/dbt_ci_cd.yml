@@ -19,7 +19,7 @@ jobs:
             POSTGRES_DB: test_db
         options: >-
             --health-cmd pg_isready
-            --heatlh-interval 10s
+            --health-interval 10s
             --health-timeout 5s
             --health-retries 5
         ports : 
@@ -92,7 +92,7 @@ jobs:
 
   generate_docs:
     name: Générer la documentation
-    ruins-on: ubuntu-latest
+    runs-on: ubuntu-latest
     needs: test_dbt
     if: github.ref == 'refs/heads/main'
 
