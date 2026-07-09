@@ -89,6 +89,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
+          DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: compiler les modèles
         run:  dbt compile
@@ -98,6 +99,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
+          DB_SCHEMA : ${{ secrets.DB_SCHEMA }} 
 
       - name: exécuter les modèles
         run:  dbt run
@@ -107,6 +109,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
+          DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: testter les modèles
         run: dbt test
@@ -116,6 +119,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
+          DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: Afficher les tables créées (debug)
         run: |
@@ -146,6 +150,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
+          DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: Uploader la documentation
         uses: actions/upload-artifact@v4
