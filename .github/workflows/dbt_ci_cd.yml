@@ -92,7 +92,7 @@ jobs:
           DB_SCHEMA: acciveloDBT
       
       - name: compiler les modèles
-        run: python run_dbt.py dbt compile
+        run:  dbt compile
         env:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -100,8 +100,8 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_PORT: ${{ secrets.DB_PORT }}
 
-      - name: compiler les modèles
-        run: python run_dbt.py dbt run
+      - name: exécuter les modèles
+        run:  dbt run
         env:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -109,8 +109,8 @@ jobs:
           DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
-      - name: compiler les modèles
-        run: python run_dbt.py dbt test
+      - name: testter les modèles
+        run: dbt test
         env:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
@@ -140,7 +140,7 @@ jobs:
           python-version: '3.11'
 
       - name: Générer la documentation
-        run : python run_dbt.py dbt docs generate
+        run : dbt docs generate
         env:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
