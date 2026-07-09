@@ -44,7 +44,7 @@ jobs:
           fi
       
       - name: Debug - verfier les fichiers 
-        run : |
+        run :  |
           ls -la
           echo "Vérifications des profiles.yml"
           cat profiles.yml 2>/dev/null || echo "profiles.yml non trouvé"
