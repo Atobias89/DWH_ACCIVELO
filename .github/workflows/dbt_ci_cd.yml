@@ -49,6 +49,38 @@ jobs:
           echo "Vérifications des profiles.yml"
           cat profiles.yml 2>/dev/null || echo "profiles.yml non trouvé"
       
+      - name: Install ALL dependencies
+        run: |
+          pip install --upgrade pip
+          
+          # Toutes les dépendances en une seule ligne
+          pip install \
+            pandas \
+            numpy \
+            sqlalchemy \
+            psycopg2-binary \
+            requests \
+            python-dotenv \
+            python-dateutil \
+            pytz \
+            dbt-core \
+            dbt-postgres
+          
+            # Afficher les versions installées
+            echo "=== VERSIONS INSTALLÉES ==="
+            pip list
+          
+            # Vérifier les imports
+            echo "=== VÉRIFICATION DES IMPORTS ==="
+            python -c "import pandas; print('✅ pandas', pandas.__version__)"
+            python -c "import numpy; print('✅ numpy', numpy.__version__)"
+            python -c "import sqlalchemy; print('✅ sqlalchemy', sqlalchemy.__version__)"
+            python -c "import psycopg2; print('✅ psycopg2', psycopg2.__version__)"
+            python -c "import requests; print('✅ requests', requests.__version__)"
+            python -c "from dotenv import load_dotenv; print('✅ python-dotenv')"
+            python -c "import dbt; print('✅ dbt', dbt.__version__)"
+
+      
       - name: requeter API Departements et communes
         run: python ingestion/main.py
         env:
