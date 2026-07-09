@@ -89,7 +89,7 @@ jobs:
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
-          DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
+          DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
       
       - name: compiler les modèles
         run:  dbt compile
@@ -98,8 +98,8 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DB_PORT: ${{ secrets.DB_PORT }}
-          DB_SCHEMA : ${{ secrets.DB_SCHEMA }} 
+          DB_PORT: 5432
+          DB_SCHEMA: ${{ secrets.DB_SCHEMA }} 
 
       - name: exécuter les modèles
         run:  dbt run
