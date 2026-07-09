@@ -1,0 +1,122 @@
+name : run dbt with SSH
+
+on:
+  push:
+    branches : ["main","recette"]
+  workflow_dispatch:
+
+jobs:
+  test_dbt:
+    name: Tester les modèles dbt et scripts python
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+            POSTGRES_USER: test_user
+            POSTGRES_PASSWORD: test_password
+            POSTGRES_DB: test_db
+        options: >-
+            --health-cmd pg_isready
+            --heatlh-interval 10s
+            --health-timeout 5s
+            --health-retries 5
+        ports : 
+            - 5432:5432
+    steps:
+      - name: récupérer le code
+        uses: actions/checkout@v4
+
+      - name: installer python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: installer dbt
+        run: |
+          pip install dbt-core dbt-postgres
+          dbt --version
+      - name: Installer les dependances dbt
+        run: |
+          if [ -f packages.yml ]; then
+          ls -latest
+          echo "Vérifications des profiles.yml"
+          cat profiles.yml 2>/dev/null || echo "profiles.yml non trouvé"
+      
+      - name: requeter API Departements et communes
+        run: python main.py
+        env:
+          DB_HOST: localhost
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_PORT: 5432
+          DB_NAME: test_db
+          DB_SCHEMA: acciveloDBT
+      
+      - name: compiler les modèles
+        run: python run_dbt.py dbt compile
+        env:
+          DB_HOST: localhost
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_PORT: 5432
+          DB_NAME: test_db
+          DB_SCHEMA: acciveloDBT
+
+      - name: compiler les modèles
+        run: python run_dbt.py dbt run
+        env:
+          DB_HOST: localhost
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_PORT: 5432
+          DB_NAME: test_db
+          DB_SCHEMA: acciveloDBT
+      
+      - name: compiler les modèles
+        run: python run_dbt.py dbt test
+        env:
+          DB_HOST: localhost
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_PORT: 5432
+          DB_NAME: test_db
+          DB_SCHEMA: acciveloDBT
+      
+      - name: Afficher les tables créées (debug)
+        run: |
+          PGPASSWORD=test_password psql -h localhost -U test_user -d test_db -c "\dt dbt_test_ci.*"
+        env:
+          PGPASSWORD: test_password
+
+  generate_docs:
+    name: Générer la documentation
+    ruins-on: ubuntu-latest
+    needs: test_dbt
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: récupérer le code
+        uses: actions/checkout@v4
+
+      - name: Installer python
+        uses: actions/setup-python@5
+        with:
+          python-version: '3.11'
+
+      - name: Générer la documentation
+        run : python run_dbt.py dbt docs generate
+        env:
+          DB_HOST: localhost
+          DB_USER: test_user
+          DB_PASSWORD: test_password
+          DB_PORT: 5432
+          DB_NAME: test_db
+          DB_SCHEMA: dbt_test_ci
+      
+      - name: Uploader la documentation
+        uses: actions/upload-artifact@v4
+        with:
+          name: dbt-docs
+          path: target/      
