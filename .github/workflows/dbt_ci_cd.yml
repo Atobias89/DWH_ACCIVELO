@@ -14,9 +14,9 @@ jobs:
       postgres:
         image: postgres:16
         env:
-            POSTGRES_USER: test_user          
-            POSTGRES_PASSWORD: test_password
-            POSTGRES_DB: postgres
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
         options: >-
             --health-cmd pg_isready
             --health-interval 10s
@@ -88,7 +88,7 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_PORT: 5432
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
       
       - name: compiler les modèles
@@ -108,7 +108,7 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: testter les modèles
@@ -118,7 +118,7 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: Afficher les tables créées (debug)
@@ -149,7 +149,7 @@ jobs:
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
-          DB_PORT: ${{ secrets.DB_PORT }}
+          DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: Uploader la documentation
