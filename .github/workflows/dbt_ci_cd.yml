@@ -97,7 +97,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
 
       - name: exécuter les modèles
@@ -106,7 +106,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: testter les modèles
@@ -115,7 +115,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: Afficher les tables créées (debug)
@@ -145,7 +145,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: Uploader la documentation
