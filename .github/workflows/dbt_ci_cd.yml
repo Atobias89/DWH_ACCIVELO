@@ -78,7 +78,7 @@ jobs:
             python -c "import psycopg2; print('✅ psycopg2', psycopg2.__version__)"
             python -c "import requests; print('✅ requests', requests.__version__)"
             python -c "from dotenv import load_dotenv; print('✅ python-dotenv')"
-            python -c "import dbt; print('✅ dbt', dbt.__version__)"
+          
 
       
       - name: requeter API Departements et communes
