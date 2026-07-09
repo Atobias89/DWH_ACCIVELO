@@ -50,7 +50,7 @@ jobs:
           cat profiles.yml 2>/dev/null || echo "profiles.yml non trouvé"
       
       - name: requeter API Departements et communes
-        run: python main.py
+        run: python ingestion/main.py
         env:
           DB_HOST: localhost
           DB_USER: test_user
