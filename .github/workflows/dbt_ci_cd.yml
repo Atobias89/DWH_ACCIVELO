@@ -84,12 +84,11 @@ jobs:
       - name: requeter API Departements et communes
         run: python ingestion/main.py
         env:
-          DB_HOST: localhost
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          DB_PORT: 5432
-          DB_NAME: test_db
-          DB_SCHEMA: acciveloDBT
+          DB_BDD: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
+          DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: compiler les modèles
         run:  dbt compile
@@ -97,7 +96,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
 
       - name: exécuter les modèles
@@ -106,7 +105,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: testter les modèles
@@ -115,7 +114,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: Afficher les tables créées (debug)
@@ -145,7 +144,7 @@ jobs:
           DB_BDD: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
-          DB_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: Uploader la documentation
