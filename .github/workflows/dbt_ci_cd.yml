@@ -94,32 +94,29 @@ jobs:
       - name: compiler les modèles
         run: python run_dbt.py dbt compile
         env:
-          DB_HOST: localhost
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          DB_PORT: 5432
-          DB_NAME: test_db
-          DB_SCHEMA: acciveloDBT
+          DB_BDD: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
 
       - name: compiler les modèles
         run: python run_dbt.py dbt run
         env:
-          DB_HOST: localhost
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          DB_PORT: 5432
-          DB_NAME: test_db
-          DB_SCHEMA: acciveloDBT
+          DB_BDD: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: compiler les modèles
         run: python run_dbt.py dbt test
         env:
-          DB_HOST: localhost
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          DB_PORT: 5432
-          DB_NAME: test_db
-          DB_SCHEMA: acciveloDBT
+          DB_BDD: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: Afficher les tables créées (debug)
         run: |
@@ -145,12 +142,11 @@ jobs:
       - name: Générer la documentation
         run : python run_dbt.py dbt docs generate
         env:
-          DB_HOST: localhost
-          DB_USER: test_user
-          DB_PASSWORD: test_password
-          DB_PORT: 5432
-          DB_NAME: test_db
-          DB_SCHEMA: dbt_test_ci
+          DB_BDD: ${{ secrets.DB_NAME }}
+          DB_HOST: ${{ secrets.DB_HOST }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+          DB_PORT: ${{ secrets.DB_PORT }}
       
       - name: Uploader la documentation
         uses: actions/upload-artifact@v4
