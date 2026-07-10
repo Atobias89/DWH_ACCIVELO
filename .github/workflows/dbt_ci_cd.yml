@@ -148,9 +148,9 @@ jobs:
       
       - name: Afficher les tables créées (debug)
         run: |
-          PGPASSWORD=test_password psql -h localhost -U test_user -d test_db -c "\dt dbt_test_ci.*"
+          PGPASSWORD=${{ secrets.DB_PASS }} psql -h localhost -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_BDD }}  -c "\dt dbt_test_ci.*"
         env:
-          PGPASSWORD: test_password
+          PGPASSWORD: ${{ secrets.DB_PASS }}
 
   generate_docs:
     name: Générer la documentation
