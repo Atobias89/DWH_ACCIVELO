@@ -93,10 +93,18 @@ jobs:
       - name: Créer le schéma
         run: |
           PGPASSWORD=${{ secrets.DB_PASS }} psql \
-          -h ${{ secrets.DB_HOST }} \
+          -h localhost \
           -U ${{ secrets.DB_USER }} \
           -d ${{ secrets.DB_BDD }} \
           -c "CREATE SCHEMA IF NOT EXISTS ${{ secrets.DB_SCHEMA }};"
+
+            echo "Schémas présents :"
+
+          PGPASSWORD=${{ secrets.DB_PASS }} psql \
+          -h localhost \
+          -U ${{ secrets.DB_USER }} \
+          -d ${{ secrets.DB_BDD }} \
+          -c "\dn"
 
       - name: requeter API Departements et communes
         run: python ingestion/main.py
