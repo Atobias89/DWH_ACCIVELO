@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: acci
-    schema: acciveloDBT
+    schema: accivelodbt
     tables:
       - name: info_geo_communes
       - name: info_geo_departments
