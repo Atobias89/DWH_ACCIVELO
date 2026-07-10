@@ -9,6 +9,7 @@ jobs:
   test_dbt:
     name: Tester les modèles dbt et scripts python
     runs-on: ubuntu-latest
+    environment: recette
 
     services:
       postgres:
@@ -84,40 +85,40 @@ jobs:
       - name: requeter API Departements et communes
         run: python ingestion/main.py
         env:
-          DB_BDD: ${{ secrets.DB_NAME }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
       
       - name: compiler les modèles
         run:  dbt compile
         env:
-          DB_BDD: ${{ secrets.DB_NAME }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }} 
 
       - name: exécuter les modèles
         run:  dbt run
         env:
-          DB_BDD: ${{ secrets.DB_NAME }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: testter les modèles
         run: dbt test
         env:
-          DB_BDD: ${{ secrets.DB_NAME }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
@@ -145,10 +146,10 @@ jobs:
       - name: Générer la documentation
         run : dbt docs generate
         env:
-          DB_BDD: ${{ secrets.DB_NAME }}
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
           DB_HOST: ${{ secrets.DB_HOST }}
-          DB_USER: ${{ secrets.DB_USER }}
-          DB_PASS: ${{ secrets.DB_PASS }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
