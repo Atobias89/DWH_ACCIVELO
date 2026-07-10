@@ -43,12 +43,17 @@ models:
       - name : updated_at
   - name : stg_loc_accident
     columns :
-      - name : num_acc
+      - name : loc_id
         constraints:
           - type : primary_key
         tests:
           - not_null
       - name : departement
-      - name : comune 
+      - name : commune
+      - name : code_postal
+      - name : Num_Acc
+      - name : date_accident
       - name : lat
       - name : long
+      - name : created_at
+      - name : updated_at
