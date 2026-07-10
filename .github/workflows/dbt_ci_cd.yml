@@ -129,7 +129,7 @@ jobs:
       - name: exécuter les modèles
         run:  dbt run
         env:
-          DB_BDD: ${{ secrets.DB_BDD }} }
+          DB_BDD: ${{ secrets.DB_BDD }}
           DB_HOST: ${{ secrets.DB_HOST }}
           DB_USER: ${{ secrets.DB_USER }}
           DB_PASS: ${{ secrets.DB_PASS }}
