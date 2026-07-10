@@ -81,7 +81,14 @@ jobs:
             python -c "from dotenv import load_dotenv; print('✅ python-dotenv')"
           
 
-      
+      - name: Vérifier les secrets
+        run: |
+          if [ -z "${{ secrets.DB_PASS }}" ]; then
+            echo " DB_PASS est vide"
+            exit 1
+          else
+            echo " DB_PASS est présent"
+          fi
       - name: requeter API Departements et communes
         run: python ingestion/main.py
         env:
