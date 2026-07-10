@@ -92,40 +92,40 @@ jobs:
       - name: requeter API Departements et communes
         run: python ingestion/main.py
         env:
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          DB_BDD: ${{ secrets.DB_NAME }} 
           DB_HOST: ${{ secrets.DB_HOST }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }}
       
       - name: compiler les modèles
         run:  dbt compile
         env:
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          DB_BDD: ${{ secrets.DB_NAME }}         
           DB_HOST: ${{ secrets.DB_HOST }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA: ${{ secrets.DB_SCHEMA }} 
 
       - name: exécuter les modèles
         run:  dbt run
         env:
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          DB_BDD: ${{ secrets.DB_NAME }} }
           DB_HOST: ${{ secrets.DB_HOST }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: testter les modèles
         run: dbt test
         env:
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          DB_BDD: ${{ secrets.DB_NAME }} 
           DB_HOST: ${{ secrets.DB_HOST }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
@@ -153,10 +153,10 @@ jobs:
       - name: Générer la documentation
         run : dbt docs generate
         env:
-          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          DB_BDD: ${{ secrets.DB_NAME }} 
           DB_HOST: ${{ secrets.DB_HOST }}
-          POSTGRES_USER: ${{ secrets.DB_USER }}
-          POSTGRES_PASSWORD: ${{ secrets.DB_PASS }}
+          DB_USER: ${{ secrets.DB_USER }}
+          DB_PASS: ${{ secrets.DB_PASS }}
           DB_PORT: 5432
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
