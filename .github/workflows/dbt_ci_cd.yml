@@ -88,14 +88,15 @@ jobs:
             exit 1
           else
             echo " DB_PASS est présent"
-          
+          fi
+
       - name: Créer le schéma
         run: |
           PGPASSWORD=${{ secrets.DB_PASS }} psql \
-          -h localhost \
+          -h ${{ secrets.DB_HOST }} \
           -U ${{ secrets.DB_USER }} \
           -d ${{ secrets.DB_BDD }} \
-          -c "CREATE SCHEMA IF NOT EXISTS ${{ secrets.DB_SCHEMA }};
+          -c "CREATE SCHEMA IF NOT EXISTS ${{ secrets.DB_SCHEMA }};"
 
       - name: requeter API Departements et communes
         run: python ingestion/main.py
