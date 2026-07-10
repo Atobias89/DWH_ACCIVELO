@@ -9,7 +9,7 @@ jobs:
   test_dbt:
     name: Tester les modèles dbt et scripts python
     runs-on: ubuntu-latest
-    environment: recette
+    environment: env_var
 
     services:
       postgres:
