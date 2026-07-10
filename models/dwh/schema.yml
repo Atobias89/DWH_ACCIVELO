@@ -92,7 +92,7 @@ models:
       - name: typevehicules
         data_type: text
       - name: num_vehicules
-        data_type: bigint
+        data_type: float
       - name: created_at
         data_type: date
       - name: updated_at
