@@ -205,7 +205,7 @@ jobs:
           DB_SCHEMA : ${{ secrets.DB_SCHEMA }}
       
       - name: Uploader la documentation
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: dbt-docs
           path: target/      
